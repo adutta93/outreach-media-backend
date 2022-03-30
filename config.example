@@ -1,0 +1,12 @@
+To change the database uri, change the email and password at the "DATABASE_URI" string under default.json.
+
+The default uri string will be something like :
+"mongodb+srv://<your-database-name>:<paassword>.pevvu.mongodb.net/<collection-name>?retryWrites=true&w=majority"
+
+you need to change database-name, password and collection-name here.
+
+example: if database name is 'test123', collection-name is 'john_doe_123' and password is "12345678" then it should look like
+
+"mongodb+srv://test123:12345678.pevvu.mongodb.net/john_doe_123?retryWrites=true&w=majority" 
+
+Though the database name will be automatically fetched when you initiated thhe project, you dont have to do this manually
