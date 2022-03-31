@@ -20,7 +20,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(function (req, res, next) {
   //Enabling CORS
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET,HEAD,OPTIONS,POST,PUT,DELETE"
+  );
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization"
@@ -43,7 +46,18 @@ app.use("/api", subscribeRoute);
 
 //server
 const port = process.env.PORT || 1993;
-const host = "0.0.0.0";
-app.listen(port, host, () => {
-  console.log(`App is running at port ${port}`);
-});
+const host = process.env.HOST || "0.0.0.0";
+// app.listen(port, host, () => {
+//   console.log(`App is running at port ${port}`);
+// });
+
+var cors_proxy = require("cors-anywhere");
+cors_proxy
+  .createServer({
+    originWhitelist: [], // Allow all origins
+    requireHeader: ["origin", "x-requested-with"],
+    removeHeaders: ["cookie", "cookie2"],
+  })
+  .listen(port, host, function () {
+    console.log("Running CORS Anywhere on " + host + ":" + port);
+  });
