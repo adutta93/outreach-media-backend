@@ -16,6 +16,10 @@ app.use(
 app.use(express.json({ extended: false }));
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
+app.use(function (req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  next();
+});
 
 // app.use(function (req, res, next) {
 //   //Enabling CORS
@@ -46,18 +50,18 @@ app.use("/api", subscribeRoute);
 
 //server
 const port = process.env.PORT || 1993;
-const host = process.env.HOST || "0.0.0.0";
-// app.listen(port, host, () => {
-//   console.log(`App is running at port ${port}`);
-// });
+const host = "0.0.0.0";
+app.listen(port, host, () => {
+  console.log(`App is running at port ${port}`);
+});
 
-var cors_proxy = require("cors-anywhere");
-cors_proxy
-  .createServer({
-    originWhitelist: [], // Allow all origins
-    requireHeader: ["origin", "x-requested-with"],
-    removeHeaders: ["cookie", "cookie2"],
-  })
-  .listen(port, host, function () {
-    console.log("Running CORS Anywhere on " + host + ":" + port);
-  });
+// var cors_proxy = require("cors-anywhere");
+// cors_proxy
+//   .createServer({
+//     originWhitelist: [], // Allow all origins
+//     requireHeader: ["origin", "x-requested-with"],
+//     removeHeaders: ["cookie", "cookie2"],
+//   })
+//   .listen(port, function () {
+//     console.log("Running CORS Anywhere on " + ":" + port);
+//   });
