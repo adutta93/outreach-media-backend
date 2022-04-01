@@ -8,6 +8,7 @@ require("dotenv").config();
 const { errorHandler } = require("./middleware/errorHandler");
 
 //middleware
+// app.use(cors());
 app.use(cors());
 app.use(
   fileUpload({
