@@ -29,8 +29,8 @@ router.post(
       .matches(/\d/)
       .withMessage("Password must contain a number"),
   ],
-  protect,
-  isAdmin,
+  // protect,
+  // isAdmin,
   signup
 );
 

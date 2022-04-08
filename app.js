@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const morgan = require("morgan");
 // const colore = require("colors");
 const fileUpload = require("express-fileupload");
 const connectDB = require("./db/db");
@@ -8,8 +9,8 @@ require("dotenv").config();
 const { errorHandler } = require("./middleware/errorHandler");
 
 //middleware
-// app.use(cors());
 app.use(cors());
+app.use(morgan("tiny"));
 app.use(
   fileUpload({
     useTempFiles: true,
@@ -17,7 +18,6 @@ app.use(
 );
 app.use(express.json({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
-
 // app.use(function (req, res, next) {
 //   //Enabling CORS
 //   res.header("Access-Control-Allow-Origin", "*");
