@@ -1,22 +1,27 @@
-const express = require("express");
+const express = require('express');
 const {
-  getAllContent,
-  getContentById,
-  createContent,
-  updateContent,
-  deleteContent,
-} = require("../controller/contentController");
+	getAllContent,
+	getContentById,
+	createContent,
+	updateContent,
+	deleteContent,
+	SearchContent,
+	ElasticIndex,
+} = require('../controller/contentController');
 
-const { protect, isAdmin } = require("../middleware/authHandler");
+const { protect, isAdmin } = require('../middleware/authHandler');
 
 const router = express.Router();
+router.use(ElasticIndex);
+// router.get('/search/:index/:type', SearchContent);
 
-router.route("/content").get(getAllContent).post(protect, createContent);
-
+router.get('/search', SearchContent);
+router.route('/content').get(getAllContent).post(createContent);
+// router.route('/content/search').get(SearchContent);
 router
-  .route("/content/:id")
-  .get(protect, getContentById)
-  .put(protect, updateContent)
-  .delete(protect, isAdmin, deleteContent);
+	.route('/content/:id')
+	.get(protect, getContentById)
+	.put(protect, updateContent)
+	.delete(protect, isAdmin, deleteContent);
 
 module.exports = router;

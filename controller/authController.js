@@ -1,7 +1,7 @@
+require("dotenv").config();
 const User = require("../models/userSchema");
 const { check, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
 
 // SIGNUP;
 exports.signup = async (req, res) => {

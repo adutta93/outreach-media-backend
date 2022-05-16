@@ -1,20 +1,20 @@
-const express = require("express");
-const cors = require("cors");
-const morgan = require("morgan");
+const express = require('express');
+const cors = require('cors');
+const morgan = require('morgan');
 // const colore = require("colors");
-const fileUpload = require("express-fileupload");
-const connectDB = require("./db/db");
+const fileUpload = require('express-fileupload');
+const connectDB = require('./db/db');
 const app = express();
-require("dotenv").config();
-const { errorHandler } = require("./middleware/errorHandler");
+require('dotenv').config();
+const { errorHandler } = require('./middleware/errorHandler');
 
 //middleware
 app.use(cors());
-app.use(morgan("tiny"));
+app.use(morgan('tiny'));
 app.use(
-  fileUpload({
-    useTempFiles: true,
-  })
+	fileUpload({
+		useTempFiles: true,
+	})
 );
 app.use(express.json({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
@@ -36,20 +36,21 @@ app.use(errorHandler);
 // conncet database
 connectDB();
 
-const contentRoute = require("./routes/contentRoute");
-const authRoute = require("./routes/authRoute");
-const subscribeRoute = require("./routes/subscribeRoute");
+const contentRoute = require('./routes/contentRoute');
+const authRoute = require('./routes/authRoute');
+const subscribeRoute = require('./routes/subscribeRoute');
 
 //routes
-app.use("/api", contentRoute);
-app.use("/api", authRoute);
-app.use("/api", subscribeRoute);
+app.use('/api', contentRoute);
+app.use('/api', authRoute);
+app.use('/api', subscribeRoute);
 
 //server
 const port = process.env.PORT || 1993;
-const host = "0.0.0.0";
+const host = '0.0.0.0';
 app.listen(port, host, () => {
-  console.log(`App is running at port ${port}`);
+	console.clear();
+	console.log(`App is running at port ${port}`);
 });
 
 // var cors_proxy = require("cors-anywhere");
